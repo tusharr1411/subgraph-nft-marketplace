@@ -12,9 +12,11 @@ import {
 } from "../generated/schema";
 
 export function handleItemListed(event: ItemListedEvent): void {
+    //grab the item row from ActiveItem and ListedItem tables against the ItemListedEvent's ID( If exists)
     let itemListed = ItemListed.load(getIdFromEventParams(event.params.tokenId, event.params.nftAddress));
     let activeItem = ActiveItem.load(getIdFromEventParams(event.params.tokenId, event.params.nftAddress));
 
+    //If not then create new entities in tables
     if (!itemListed) {
         itemListed = new ItemListed(getIdFromEventParams(event.params.tokenId, event.params.nftAddress));
     }
